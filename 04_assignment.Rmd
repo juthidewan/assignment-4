@@ -51,7 +51,7 @@ bestsellers <- read_sheet("https://docs.google.com/spreadsheets/d/1n3xKHK4-t5S73
 
 ```{r, eval=FALSE}
 bestsellers %>% 
-  mutate(mult_auth =str_???(???, "???")) %>% 
+  mutate(mult_auth =str_detect(author, " and ")) %>% 
   filter(mult_auth)
 ```
 
@@ -59,7 +59,7 @@ bestsellers %>%
 
 ```{r, eval=FALSE}
 bestsellers %>% 
-  mutate(vowel =str_???(author, "???")) %>% 
+  mutate(vowel =str_detect(author, "^[AEIOU]")) %>% 
   filter(vowel)
 ```
 
@@ -67,33 +67,35 @@ bestsellers %>%
 
 ```{r, eval=FALSE}
 bestsellers %>% 
-  mutate(names = str_???_???(???, "Alexander", "Alex"))
+  mutate(names = str_replace(author, "Alexander", "Alex"))
 ```
 
 4. Find books that are the second book in a series
 
 ```{r, eval=FALSE}
 bestsellers %>%
-  mutate(series = str_???(???, 
-                          pattern = "???")) %>%
+  mutate(series = str_detect(description, 
+                          pattern = " sequel ")) %>%
   filter(series == TRUE)
 ```
 
 5. Find books that are the third or fourth one in a series
 
 ```{r, eval=FALSE}
+alex <-
 bestsellers %>%
-  mutate(series = str_???(???, 
-                          pattern = "???")) %>%
-  filter(series == TRUE)
+  mutate(series = str_detect(description, 
+                          pattern = "(third)")) %>%
+   filter(series == TRUE) 
 ```
 
 6. Find books that are the 10th, 11th, ..., or 19th book in a series
 
 ```{r, eval=FALSE}
+alex<-
 bestsellers %>%
-  mutate(series = str_???(???, 
-                          pattern = "???")) %>%
+  mutate(series = str_detect(description, 
+                          pattern = "[10-19]")) %>%
   filter(series == TRUE)
 ```
 
@@ -126,7 +128,7 @@ data("metro")
 1. Make a world map using the base **World** dataset we used with the COVID example. Add information about income groups (income_grp) to the plot, specify a color palette.
 
 
-```{r, eval = FALSE}
+```{r}
 # let's explore the variable names of each dataset
 names(World)
 names(metro)
@@ -138,12 +140,14 @@ names(metro)
 tmap_mode('plot')
 
 tm_shape(World) +
-    tm_polygons("??", 
-                palette="??", 
-                contrast= ??, 
+    tm_polygons("income_grp", 
+                palette="-Blues", 
+                contrast= .5, 
                 id="name", 
                 title="Income group")
 ```
+
+
 
 
 
@@ -156,13 +160,13 @@ tm_shape(World) +
 tmap_mode('plot')
 
 tm_shape(World) +
-  tm_polygons("??", 
-              palette="??", 
-              contrast= ??, 
+  tm_polygons("income_grp", 
+              palette="-Purples", 
+              contrast= .5, 
               id="name", 
               title="Income group") +
   tm_shape(metro) +
-  tm_??("??", 
+  tm_facets("pop_2020", 
         contrast=1, 
         title.size="Metro population", 
         id="name")  #HINT: what other tm_type can we add here?
