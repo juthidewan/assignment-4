@@ -85,18 +85,17 @@ bestsellers %>%
 alex <-
 bestsellers %>%
   mutate(series = str_detect(description, 
-                          pattern = "(third)")) %>%
-   filter(series == TRUE) 
+                          pattern = c("third", "fourth"))) %>%
+  filter(series == TRUE) 
 ```
 
 6. Find books that are the 10th, 11th, ..., or 19th book in a series
 
 ```{r, eval=FALSE}
-alex<-
 bestsellers %>%
   mutate(series = str_detect(description, 
-                          pattern = "[10-19]")) %>%
-  filter(series == TRUE)
+                          pattern = "[10-19]th")) %>%
+           filter(series == TRUE)
 ```
 
 
@@ -104,7 +103,7 @@ bestsellers %>%
 
 <br> 
 
-##### 
+##### I would use str_detect for this and look for symbols using the character tables. For symbols, I would do str_detect patterns using “\W”, character classes for upper and lower case letters and quantifiers for digits. 
 
 <br> 
 
@@ -158,7 +157,7 @@ tm_shape(World) +
 
 2. To the plot from (1), add the new dataset **metro** to the plot, and add information about cities' populations in 2020.
 
-```{r, eval = FALSE}
+```{r}
 # Set your mode
 tmap_mode('plot')
 
@@ -181,7 +180,7 @@ tm_shape(World) +
 
 3. Now, make a new plot with the World data that provides a look at country economic status and the inequality associated with each. 
 
-```{r, eval = FALSE}
+```{r}
 # Set your mode
 tmap_mode('plot')
 
@@ -198,7 +197,7 @@ tm_shape(World) +
 4. Using a new data set, NDL_muni municipality data from the Netherlands, create a plot with two separate maps.  One showing the percentage of men per municipality of the whole country, and one showing the same but faceted by **province**.
 
 
-```{r, eval = FALSE}
+```{r}
 tmap_mode("plot")
 
 data(NLD_muni)
@@ -231,4 +230,6 @@ I'm hoping that the topic for this week is a review for all of you, but it's goo
 
 Read both short articles in Week6. Data visualization section of [Calling Bulllshit](https://www.callingbullshit.org/syllabus.html#Visual). Were there any principles mentioned that you hadn't heard of before? What graph stood out for you as "the worst"? Did any of the graphs fool you? Or were able to overcome the bad practices (don't worry if they fool you - plently of them have fooled me, too.)? How does practicing good data visualization principles fit in with data ethics?
 
+<br> 
 
+##### From the misleading axes reading, I don't think I still understand what the writer had intended to show with the graph of Florida gun violence. I don't know how to read it correctly but the wrong way. In addition, I thought not including 0 in the axis is interesting because it can change the conclusion / result so much. Whereas it may seem like there is a significant difference without including 0 in the x-axis, it's actually a very small difference when it is included. Also, the graph with a categorical x-axis is pretty bad. 
